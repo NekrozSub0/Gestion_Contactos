@@ -13,10 +13,15 @@ struct contactoEmail{
 
 const int TAM=5;
 contactoEmail numcontactos[TAM];
+int totalcontactos=0;
 
 void agregarContacto(){
-	cin.ignore();
+	if(totalcontactos>=TAM){
+		cout<<"Limite alcanzado"<<endl;
+		return;
+	}
 	
+	cin.ignore();
 	contactoEmail est;
 	cout<<"Ingrese el nombre completo: ";
 	getline(cin,est.nombre);
@@ -24,6 +29,7 @@ void agregarContacto(){
 	cin>>est.sexo;
 	cout<<"Ingrese la edad: ";
 	cin>>est.edad;
+	cin.ignore();
 	cout<<"Ingrese el telefono: ";
 	getline(cin,est.telefono);
 	cout<<"Ingrese el email: ";
@@ -38,41 +44,38 @@ void agregarContacto(){
 	cout<<"Telefono: "<<est.telefono<<endl;
 	cout<<"Email: "<<est.email<<endl;
 	cout<<"Nacionalidad: "<<est.nacionalidad<<endl<<endl;
+	
+	numcontactos[totalcontactos]=est;
+	totalcontactos++;
 }
 
 void eliminarContacto(){
 	cin.ignore();
-	
 	string nombre;
 	cout<<"Ingrese el contacto a eliminar: ";
 	getline(cin, nombre);
 	bool resultado=false;
 	
 	int n=TAM;
-	for(int i=0;i<n;i++){
+	for(int i=0;i<totalcontactos;i++){
 		if(numcontactos[i].nombre==nombre){
-			for(int j=i;j<n-1;j++){
+			for(int j=i;j<totalcontactos-1;j++){
 				numcontactos[j]=numcontactos[j+1];
 			}
-			n--;
+			totalcontactos--;
 			resultado=true;
-			cout<<"Contacto "<<nombre<<" eliminado"<<endl;
+			cout<<"Contacto "<<nombre<<" eliminado"<<endl<<endl;
 			break;
 		}
 	}
-	if(resultado=false){
-		cout<<"Contando no ubicado"<<endl;
+	if(resultado==false){
+		cout<<"Contando no ubicado"<<endl<<endl;
 	}
 }
 
 void listaContactos(){
-	if(numcontactos==0){
-		cout<<"No hay contactos registrados"<<endl;
-		return;
-	}
-	int n=TAM;
-	for(int i=0;i<n;i++){
-		cout<<"LISTA DE CONTACTOS REGISTRADOS"<<endl;
+	cout<<"LISTA DE CONTACTOS REGISTRADOS"<<endl<<endl;
+	for(int i=0;i<totalcontactos;i++){
 		cout<<"Nombre: "<<numcontactos[i].nombre<<endl;
 		cout<<"Sexo: "<<numcontactos[i].sexo<<endl;
 		cout<<"Edad: "<<numcontactos[i].edad<<endl;
@@ -82,11 +85,31 @@ void listaContactos(){
 	}
 }
 
+string dominiodelcorreo(string email){
+	size_t pos=email.find('@');
+	if (pos != string::npos){
+		return email.substr(pos +1);
+	}
+	return "";
+}
+
 void listaContactosOrdenados(){
+	for(int i=0;i<totalcontactos-1;i++){
+		for(int j=0;j<totalcontactos-i-1;j++){
+			string dominio1=dominiodelcorreo(numcontactos[j].email);
+			string dominio2=dominiodelcorreo(numcontactos[j+1].email);
+			if(dominio1>dominio2){
+				contactoEmail aux=numcontactos[j];
+				numcontactos[j]=numcontactos[j+1];
+				numcontactos[j+1]=aux;
+			}
+		}
+	}
+	cout<<"LISTA DE CONTACTOS ORDENADOS POR CORREO"<<endl<<endl;
+	listaContactos();
 }
 
 int main(){
-	const int TAM=0;
 	char menu_opcion;
 	do{
 	cout<<"INGRESE UNA OPCION"<<endl;
@@ -96,6 +119,7 @@ int main(){
 	cout<<"d) Mostrar contactos existentes, ordenado por correo"<<endl;
 	cout<<"e) Salir del programa"<<endl<<endl;
 	cin>>menu_opcion;
+	
 	switch (menu_opcion){
 		case 'a':
 			//Agregar un contacto
