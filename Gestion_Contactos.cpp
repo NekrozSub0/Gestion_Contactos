@@ -11,8 +11,12 @@ struct contactoEmail{
 	string nacionalidad;
 };
 
+const int TAM=20;
+contactoEmail numcontactos[TAM];
+
 void agregarContacto(){
 	cin.ignore();
+	
 	contactoEmail est;
 	cout<<"Ingrese el nombre completo: ";
 	getline(cin,est.nombre);
@@ -36,9 +40,30 @@ void agregarContacto(){
 	cout<<"Nacionalidad: "<<est.nacionalidad<<endl<<endl;
 }
 
-
+void eliminarContacto(){
+	cin.ignore();
+	
+	string nombre;
+	cout<<"Ingrese el contacto a eliminar: ";
+	getline(cin, nombre);
+	bool resultado=false;
+	
+	int n=TAM;
+	for(int i=0;i<n;i++){
+		if(numcontactos[i].nombre==nombre){
+			for(int j=i;j<n-1;j++){
+				numcontactos[j]=numcontactos[j+1];
+			}
+			n--;
+			resultado=true;
+			cout<<"Contacto "<<nombre<<" eliminado"<<endl;
+			break;
+		}
+	}
+}
 
 int main(){
+	const int TAM=0;
 	char menu_opcion;
 	do{
 	cout<<"INGRESE UNA OPCION"<<endl;
@@ -55,7 +80,7 @@ int main(){
 			break;
 		case 'b':
 			//Eliminar un contacto
-			
+			eliminarContacto();
 			break;
 		case 'c':
 			//Mostrar lista de contactos registrados
