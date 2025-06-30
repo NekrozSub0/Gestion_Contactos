@@ -11,7 +11,7 @@ struct contactoEmail{
 	string nacionalidad;
 };
 
-const int TAM=20;
+const int TAM=5;
 contactoEmail numcontactos[TAM];
 
 void agregarContacto(){
@@ -60,6 +60,29 @@ void eliminarContacto(){
 			break;
 		}
 	}
+	if(resultado=false){
+		cout<<"Contando no ubicado"<<endl;
+	}
+}
+
+void listaContactos(){
+	if(numcontactos==0){
+		cout<<"No hay contactos registrados"<<endl;
+		return;
+	}
+	int n=TAM;
+	for(int i=0;i<n;i++){
+		cout<<"LISTA DE CONTACTOS REGISTRADOS"<<endl;
+		cout<<"Nombre: "<<numcontactos[i].nombre<<endl;
+		cout<<"Sexo: "<<numcontactos[i].sexo<<endl;
+		cout<<"Edad: "<<numcontactos[i].edad<<endl;
+		cout<<"Telefono: "<<numcontactos[i].telefono<<endl;
+		cout<<"Email: "<<numcontactos[i].email<<endl;
+		cout<<"Nacionalidad: "<<numcontactos[i].nacionalidad<<endl<<endl;
+	}
+}
+
+void listaContactosOrdenados(){
 }
 
 int main(){
@@ -84,11 +107,11 @@ int main(){
 			break;
 		case 'c':
 			//Mostrar lista de contactos registrados
-			
+			listaContactos();
 			break;
 		case 'd':
 			//Mostrar contactos existentes, ordenado por correo
-			
+			listaContactosOrdenados();
 			break;
 		case 'e':
 			//Salir del programa
