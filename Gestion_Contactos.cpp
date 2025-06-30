@@ -10,11 +10,38 @@ struct contactoEmail{
 	string email;
 	string nacionalidad;
 };
+
+void agregarContacto(){
+	cin.ignore();
+	contactoEmail est;
+	cout<<"Ingrese el nombre completo: ";
+	getline(cin,est.nombre);
+	cout<<"Ingrese el sexo (M (Masculino), F (Femenino)): ";
+	cin>>est.sexo;
+	cout<<"Ingrese la edad: ";
+	cin>>est.edad;
+	cout<<"Ingrese el telefono: ";
+	getline(cin,est.telefono);
+	cout<<"Ingrese el email: ";
+	getline(cin,est.email);
+	cout<<"Ingrese la nacionalidad: ";
+	getline(cin,est.nacionalidad);
 	
+	cout<<endl<<"CONTACTO AÑADIDO"<<endl;
+	cout<<"Nombre: "<<est.nombre<<endl;
+	cout<<"Sexo: "<<est.sexo<<endl;
+	cout<<"Edad: "<<est.edad<<endl;
+	cout<<"Telefono: "<<est.telefono<<endl;
+	cout<<"Email: "<<est.email<<endl;
+	cout<<"Nacionalidad: "<<est.nacionalidad<<endl<<endl;
+}
+
+
+
 int main(){
 	char menu_opcion;
 	do{
-	cout<<"Ingrese una opcion"<<endl;
+	cout<<"INGRESE UNA OPCION"<<endl;
 	cout<<"a) Agregar un contacto"<<endl;
 	cout<<"b) Eliminar un contacto"<<endl;
 	cout<<"c) Mostrar lista de contactos registrados"<<endl;
@@ -24,7 +51,7 @@ int main(){
 	switch (menu_opcion){
 		case 'a':
 			//Agregar un contacto
-			
+			agregarContacto();
 			break;
 		case 'b':
 			//Eliminar un contacto
